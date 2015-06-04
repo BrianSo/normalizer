@@ -174,7 +174,7 @@ int main(int argc, char **argv) {
     parse_data(table, ta, xa, ya, za, tg, xg, yg, zg, t_geo, speed_geo);
 
 	//FLAGS_xxx is just gflags things.
-    output_filename = string(FLAGS_output).length() > 0 ? FLAGS_output : "norm_" + string(argv[1]);
+    output_filename = FLAGS_output.length() > 0 ? FLAGS_output : "norm_" + string(argv[1]);
 
 	// calculates corresponding quantile_mean to each elements
 	//		the result is also a list

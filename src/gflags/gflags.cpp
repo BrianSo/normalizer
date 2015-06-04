@@ -148,6 +148,7 @@
 //
 // TODO(keir): Get the upstream Windows port and use that instead.
 #ifdef _MSC_VER
+
 # define snprintf _snprintf
 # undef strtoint64
 # define strtoint64 _strtoi64

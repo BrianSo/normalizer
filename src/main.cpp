@@ -10,9 +10,9 @@
 #include <sstream>
 #include <iomanip>
 #include <string.h>
+#include <algorithm>
 
 #include "types.hpp"
-#include "plot.hpp"
 #include "utils.hpp"
 #include "config.hpp"
 
@@ -158,19 +158,15 @@ int main(int argc, char **argv) {
 	// all gflags related things are just about parsing command line arguments (i.e. the -al flags for command 'ls -al')
 
 	// *IMPORTANT all default flags values are defined in config.cpp
-    google::SetUsageMessage("Program normalizes sensors values as recording device is always in the same orientation");
-    google::ParseCommandLineFlags(&argc, &argv, true);
-    if (argc <= 1) {
-        cerr << "No input file given" << endl;
-        return -1;
-    }
+
 
 	//read data from disk to 2d string array
 	// data format:
 	//		entry;entry;entry;entry;entry.... \n
 	//		entry;entry;entry;entry;entry.... \n
 	//		...
-    table = read_table(argv[1]);
+	return 0;
+    table = read_table("The file path");
 
 
 	// ## WE MIGHT START OUR CONVERSION FROM HERE ##
@@ -178,7 +174,7 @@ int main(int argc, char **argv) {
     parse_data(table, ta, xa, ya, za, tg, xg, yg, zg, t_geo, speed_geo);
 
 	//FLAGS_xxx is just gflags things.
-    output_filename = FLAGS_output.length() > 0 ? FLAGS_output : "norm_" + string(argv[1]);
+    output_filename = string(FLAGS_output).length() > 0 ? FLAGS_output : "norm_" + string(argv[1]);
 
 	// calculates corresponding quantile_mean to each elements
 	//		the result is also a list
@@ -260,31 +256,6 @@ int main(int argc, char **argv) {
     replace_data(table, ta, xa, ya, za, tg, xg, yg, zg);
 	// write to file
     write_data(output_filename, table);
-
-	// the following is just plotting data
-#ifdef PYPLOT
-//    list x, y;
-//    dumb_track_calculation(ta, xa_mean, ya_mean, tg, zg, x, y, 1598); // 1598 to skip big pause in 2014-09-28_SensorDatafile
-//    plt.plot(x, y);
-
-    plt.plot(ta, xa_mean);
-    plt.plot(ta, ya_mean);
-    plt.plot(ta, za_mean);
-//    plt.plot(ta, za);
-//    plt.plot(ta, zg);
-
-    list vert;
-    vert.push_back(-10);
-    vert.push_back(10);
-    for (int i = 1; i < block_starts.size(); ++i) {
-        list hor;
-        hor.push_back(ta[block_starts[i]]);
-        hor.push_back(ta[block_starts[i]]);
-        plt.plot(hor, vert, ", c='black', lw=3");
-    }
-
-    plt.show();
-#endif
 
     return 0;
 }

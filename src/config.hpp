@@ -4,21 +4,34 @@
  */
 
 #pragma once
+#include "types.hpp"
 
-#include "gflags/gflags.hpp"
+//"Threshold for detecting when the phone was moved inside the vehicle. "
+//"Shows maximal difference between vectors of acceleration when they are considered from the same interval."
+#define FLAGS_block_diff_thres 100.0
 
-DECLARE_double(block_diff_thres);
+//"Threshold for detecting when the phone was moved inside the vehicle. "
+//"Shows maximal difference between time of neighboring vectors of acceleration "
+//"when they are considered from the same interval."
+#define FLAGS_block_time_thres 3.0 * EXCEL_SECOND
 
-DECLARE_double(block_time_thres);
+//"Type of the algorithm for detecting when the phone was moved inside the vehicle."
+#define FLAGS_adjacent false
 
-DECLARE_bool(adjacent);
+//"Radius in excel time, used in acceleration data smoothing."
+#define FLAGS_sm_radius 0.5 * EXCEL_SECOND
 
-DECLARE_double(sm_radius);
+//"Shows how many values will be taken for smoothing, "
+#define FLAGS_sm_range_part 0.5
 
-DECLARE_double(sm_range_part);
+//"Shows how many acceleration vectors will be taken for counting mean acceleration vector, "
+//"very small and large ones will be thrown aside."
+#define FLAGS_z_range_part 0.3
 
-DECLARE_double(z_range_part);
+//"Sets maximal time length (in excel time) "
+//"between two speed values for which speed derivative can be calculated."
+#define FLAGS_speed_detection_thres 3.0 * EXCEL_SECOND
 
-DECLARE_double(speed_detection_thres);
+//"Output file name, if nothing passed, will be \"norm_<input>\""
+#define FLAGS_output ""
 
-DECLARE_string(output);

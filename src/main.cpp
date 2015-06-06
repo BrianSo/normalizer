@@ -148,14 +148,8 @@ list t_geo, speed_geo;			// data for gps:			excel_time, speed
 list xa_mean, ya_mean, za_mean;	// mean data for accelerometer
 string output_filename;
 
-#ifdef PYPLOT
-PyPlot plt;
-#endif
 
 int main(int argc, char **argv) {
-
-	// gflags or google related things are not the core of the algorithm
-	// all gflags related things are just about parsing command line arguments (i.e. the -al flags for command 'ls -al')
 
 	// *IMPORTANT all default flags values are defined in config.cpp
 
